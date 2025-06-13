@@ -1,0 +1,38 @@
++------------------+
+|     Usuario      |
++------------------+
+| - nome           |
+| - id             |
++------------------+
+
++------------------+
+|      Livro       |
++------------------+
+| - titulo         |
+| - autor          |
+| - ano            |
+| - quantidade     |
++------------------+
+
++----------------------+
+|     Emprestimo       |
++----------------------+
+| - usuario            |
+| - livro              |
+| - data_emprestimo    |
+| - devolvido          |
++----------------------+
+
++----------------------+
+|     Biblioteca       |
++----------------------+
+| - usuarios: list     |
+| - livros: list       |
+| - emprestimos: list  |
++----------------------+
+| + cadastrar_usuario()|
+| + adicionar_livro()  |
+| + emprestar_livro()  |
+| + devolver_livro()   |
+| + calcular_multa()   |
++----------------------+
