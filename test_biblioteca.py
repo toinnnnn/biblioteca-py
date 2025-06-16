@@ -3,6 +3,7 @@ from biblioteca import Biblioteca
 from modelos.livro import Livro
 from modelos.usuario import Usuario
 from modelos.exceptions import *
+from modelos.estrategia_multa import MultaFixa, MultaPorDiaAtraso
 
 class TestBiblioteca(unittest.TestCase):
     def setUp(self):
@@ -31,9 +32,15 @@ class TestBiblioteca(unittest.TestCase):
         with self.assertRaises(LivroIndisponivelException):
             self.bib.emprestar_livro(1, "Dom Casmurro")
 
-    def test_multa(self):
+    def test_multa_fixa(self):
         self.bib.emprestar_livro(1, "Dom Casmurro")
-        self.assertEqual(self.bib.calcular_multa(1), 10)
+        multa = self.bib.calcular_multa(1, MultaFixa())
+        self.assertEqual(multa, 10)
 
+    def test_multa_dias_atraso(self):
+        self.bib.emprestar_livro(1, "Dom Casmurro")
+        multa = self.bib.calcular_multa(1, MultaPorDiaAtraso())
+        self.assertGreaterEqual(multa, 0) 
+        
 if __name__ == '__main__':
     unittest.main()

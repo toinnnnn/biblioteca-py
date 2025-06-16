@@ -2,6 +2,7 @@ from modelos.livro import Livro
 from modelos.usuario import Usuario
 from modelos.emprestimo import Emprestimo
 from modelos.exceptions import *
+from modelos.estrategia_multa import EstrategiaMulta
 
 class Biblioteca:
     def __init__(self):
@@ -36,9 +37,6 @@ class Biblioteca:
                 return
         raise EmprestimoNaoEncontradoException("Empréstimo não encontrado.")
 
-    def calcular_multa(self, id_usuario):
-        multa = 0
-        for e in self.emprestimos:
-            if e.usuario.id == id_usuario and not e.devolvido:
-                multa += 10  # multa fixa por livro não devolvido
-        return multa
+    def calcular_multa(self, id_usuario, estrategia: EstrategiaMulta):
+        emprestimo_usuario = [e for e in self.emprestimos if e.usuario.id == id_usuario]
+        return estrategia.calcular(emprestimo_usuario)
